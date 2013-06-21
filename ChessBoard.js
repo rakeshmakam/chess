@@ -1,5 +1,6 @@
 var ScreenWidth = 400;
 var ScreenHeight = 400;
+var x2 = 'b';
 
 var Grid = new Array(8)
 	for (x = 0; x < 8; x++) {
@@ -110,11 +111,11 @@ window.onload = function () {
 	    Grid[7][1] = wPawn8;
 	    
 	    // for white rook 
-	    // var wrook1 = new rook(layer2, 'w', 0, 0, whiterook, 'wrook1');
-	    // Grid[0][0] = wrook1;
+	    var wrook1 = new rook(layer2, 'w', 0, 0, whiterook, 'wrook1');
+	    Grid[0][0] = wrook1;
 
-	    // var wrook2 = new rook(layer2, 'w', 7, 0, whiterook, 'wrook2');
-	    // Grid[7][0] = wrook2;
+	    var wrook2 = new rook(layer2, 'w', 7, 0, whiterook, 'wrook2');
+	    Grid[7][0] = wrook2;
 
 	    // for black
 	    var bPawn1 = new pawn(layer2, 'b', 0, 6, blackPawn, 'bPawn1');
@@ -142,11 +143,11 @@ window.onload = function () {
 	    Grid[7][6] = bPawn8;
 
 	    // for rook
-	    // var brook1 = new rook(layer2, 'b', 0, 7, blackrook, 'brook1');
-	    // Grid[0][7] = brook1;
+	    var brook1 = new rook(layer2, 'b', 0, 7, blackrook, 'brook1');
+	    Grid[0][7] = brook1;
 
-	    // var brook2 = new rook(layer2, 'b', 7, 7, blackrook, 'brook2');
-	    // Grid[7][7] = brook2;
+	    var brook2 = new rook(layer2, 'b', 7, 7, blackrook, 'brook2');
+	    Grid[7][7] = brook2;
 	    
 	    stage.add(layer1);
 	    stage.add(layer2);

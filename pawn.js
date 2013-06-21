@@ -1,6 +1,5 @@
-// console.log(Grid)
 //white color = w
-//black color = bs
+//black color = b
 
 function pawn (layer, color, x, y, imgSrc, PlowName) {
 	var pawnObj = this;
@@ -9,7 +8,6 @@ function pawn (layer, color, x, y, imgSrc, PlowName) {
 	this.PlowName = PlowName;
 	this.x = x;
 	this.y = y;
-	x2 = 'w';
 	this.plowObj = new Image();
 	this.plowObjKJS = new Kinetic.Image({
           x: x*50+9,
@@ -55,13 +53,10 @@ function pawn (layer, color, x, y, imgSrc, PlowName) {
 				if (this.y == 1) {
 					if (this.y+1 == y1 || this.y+2 == y1) {
 						if (Grid[x1][y1] == undefined) {
-							if(this.is_vacant(x1, y1)){
 								return true;
-							}
 						};
 					}
 				}else if (this.y >= 2) {
-
 					if (this.y+1 == y1) {
 						return true;
 					}
@@ -143,11 +138,12 @@ function pawn (layer, color, x, y, imgSrc, PlowName) {
 	this.move = function(x1, y1){
 		if (this.turn(x2)) {
 			if (this.checkValidateMove(x1, y1)) {
+				x2 = Grid[this.x][this.y].color;
 				this.movePawn(x1, y1);
 			}else{
 				this.movePawn(this.x, this.y);
 				console.log("move is not correct");
-			 }
+			}
 		}else{
 			this.movePawn(this.x, this.y);
 			console.log("Turn is not yours");
@@ -155,7 +151,6 @@ function pawn (layer, color, x, y, imgSrc, PlowName) {
 	}
 
 	this.movePawn = function(x1,y1){
-		x2 = Grid[this.x][this.y].color;
 		Grid[this.x][this.y] = undefined;
 		this.x = x1;
 		this.y = y1;
@@ -181,7 +176,7 @@ function pawn (layer, color, x, y, imgSrc, PlowName) {
 	          }
 		});
 		var pawnObj = this;
-
+		
 		this.plowObjKJS.on('dragend', function() {
         	pawnObj.move(x,y);
     	});
@@ -203,16 +198,64 @@ function pawn (layer, color, x, y, imgSrc, PlowName) {
 		}else{
 			return false;
 		}
-		
-		
 	}
 
 	this.is_vacant = function(x1, y1){
-		if (Grid[x1][y1] == undefined){
-			return true;
+		if (this.y == 1) {
+			if (Grid[this.x][this.y].color == 'w') {
+				if (this.y+1 == y1) {
+					if (Grid[x1][y1] == undefined) {
+						return true;
+					}else{
+						return false;
+					}
+				}else if (this.y+2 == y1) {
+					if (Grid[x1][y1] == undefined && Grid[x1][y1-1] == undefined) {
+						return true;
+					}else {
+						return false;
+					}
+				};
+			}else if (Grid[this.x][this.y].color == 'b') {
+				if (this.y-1 == y1) {
+					if (Grid[x1][y1] == undefined) {
+						return true;
+					}else{
+						return false;
+					}
+				};
+			};
+
+		}else if (this.y == 6) {
+			if (Grid[this.x][this.y].color == 'b') {
+				if (this.y-1 == y1) {
+					if (Grid[x1][y1] == undefined) {
+						return true;
+					}else{
+						return false;
+					}
+				}else if (this.y-2 == y1) {
+					if (Grid[x1][y1] == undefined && Grid[x1][y1+1] == undefined) {
+						return true;
+					}else {
+						return false;
+					}
+				};
+			}else if (Grid[this.x][this.y].color == 'w') {
+				if (this.y+1 == y1) {
+					if (Grid[x1][y1] == undefined) {
+						return true;
+					}else{
+						return false;
+					}
+				}
+			};
+			
+		}else if (Grid[x1][y1] == undefined) {
+				return true;
 		}else {
 			return false;
-		 }
+		}
 	}
 
 	this.Draw = function(){	
